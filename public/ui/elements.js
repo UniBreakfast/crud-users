@@ -1,6 +1,7 @@
-export { usersList, userTemplate };
+export { form, usersList, userTemplate };
 
-const usersList = document.querySelector('ol');
-const userTemplate = usersList.querySelector('template');
+const [form] = document.forms;
+const [usersList] = document.getElementsByTagName('ol');
+const userTemplate = usersList.firstElementChild
 
 userTemplate.remove();

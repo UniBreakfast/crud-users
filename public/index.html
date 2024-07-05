@@ -16,9 +16,26 @@
 </head>
 
 <body id="body">
+  <form action="user" method="post">
+    <label>
+      login:
+      <input type="text" name="login">
+    </label>
+
+    <label>
+      Name:
+      <input type="text" name="name">
+    </label>
+
+    <button type="submit">Add</button>
+  </form>
+
   <ol>
     <template>
-      <li>{name} ({login})</li>
+      <li>
+        <span>{name} ({login})</span>
+        <button value="delete" data-id="{id}">&times;</button>
+      </li>
     </template>
   </ol>
 </body>

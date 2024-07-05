@@ -15,7 +15,7 @@ function prepareCRUD(db) {
 
     async readUsers(id = null) {
       if (id) {
-        const user = await collection.findOne({ _id: ObjectId(id) });
+        const user = await collection.findOne({ _id: new ObjectId(id) });
 
         return renameId(user);
       }
@@ -28,11 +28,11 @@ function prepareCRUD(db) {
     },
 
     async updateUser(id, data) {
-      return collection.updateOne({ _id: ObjectId(id) }, { $set: data });
+      return collection.updateOne({ _id: new ObjectId(id) }, { $set: data });
     },
 
     async deleteUser(id) {
-      return collection.deleteOne({ _id: ObjectId(id) });
+      return collection.deleteOne({ _id: new ObjectId(id) });
     },
   };
 }

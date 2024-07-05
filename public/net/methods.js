@@ -1,29 +1,35 @@
 export { get, post, put, destroy };
 
-function get(url) {
-  return fetch('/api/' + url).then(r => r.json());
+function get(endpoint) {
+  return fetch('/api/' + endpoint).then(r => r.json());
 }
 
-function post(url, data) {
-  return fetch('/api/' + url, {
+function post(endpoint, data) {
+  return fetch('/api/' + endpoint, {
     method: 'POST',
     headers: {'Content-Type': 'application/json; charset=utf-8'},
     body: JSON.stringify(data),
   }).then(r => r.json());
 }
 
-function put(url, data) {
-  return fetch('/api/' + url, {
+function put(endpoint, data) {
+  return fetch('/api/' + endpoint, {
     method: 'PUT',
     headers: {'Content-Type': 'application/json; charset=utf-8'},
     body: JSON.stringify(data),
   }).then(r => r.json());
 }
 
-function destroy(url, data) {
-  return fetch('/api/' + url, {
+function destroy(endpoint, data) {
+  return fetch('/api/' + endpoint, {
     method: 'DELETE',
     headers: {'Content-Type': 'application/json; charset=utf-8'},
     body: JSON.stringify(data),
-  }).then(r => r.json());
+  }).then(r => r.text()).then(text => {
+    try {
+      return JSON.parse(text);
+    } catch {
+      return text;
+    }
+  });
 }
