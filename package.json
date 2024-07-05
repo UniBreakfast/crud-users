@@ -1,20 +1,36 @@
 {
   "name": "crud-users",
-  "version": "1.0.0",
+  "description": "A client-server application for CRUD operations with users. Written in vanilla JavaScript. Uses Node.js and MongoDB. Deployed on Render.",
+  "version": "1.0.4",
   "main": "index.js",
+
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "mongodb": "^6.8.0"
+  },
+
   "keywords": [],
   "author": "Mykhailo \"Ninin\" Velykoselskyi aka UniBreakfast",
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/UniBreakfast/crud-users"
   },
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "mongodb": "^6.8.0"
-  }
+  "gist": "https://gist.github.com/UniBreakfast/9539601329a6b5ea9be43a45d2dbf057",
+  "deploy": {
+    "provider": "render",
+    "app": "crud-users",
+    "url": "https://crud-users-j9qc.onrender.com/",
+    "dashboard": "https://dashboard.render.com/web/srv-cq3f2miju9rs739dvmt0"
+  },
+  "database": {
+    "provider": "mongodb",
+    "name": "crud-users",
+    "webview": "https://cloud.mongodb.com/v2/5f66e692482afb09f4df485b#/metrics/replicaSet/6686ad69093a7153caf451e2/explorer/crud_users/users/find"
+  },
+
+  "license": "ISC"
 }
