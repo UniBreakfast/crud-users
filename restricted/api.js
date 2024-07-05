@@ -2,7 +2,9 @@ module.exports = { provideAPI };
 
 const { getPayload } = require('./payload.js');
 
-async function provideAPI(request, response, { createUser, readUsers, deleteUser }) {
+async function provideAPI(
+  request, response, { createUser, readUsers, updateUser, deleteUser }
+) {
   const { method, url } = request;
   const endpoint = url.replace(/^\/api\//, '');
 
@@ -22,6 +24,13 @@ async function provideAPI(request, response, { createUser, readUsers, deleteUser
 
     response.setHeader('Content-Type', 'application/json');
     response.end(json);
+
+  } else if (method === 'PUT' && endpoint === 'user') {
+    const { id, login, name } = await getPayload(request);
+    
+    await updateUser(id, { login, name });
+    
+    response.end();
 
   } else if (method === 'DELETE' && endpoint === 'user') {
     const { id } = await getPayload(request);

@@ -1,6 +1,6 @@
-export {prepareToUserSubmit, prepareToClickUser, showUsers};
+export {showUsers, addUserItem, renderUserItemTemplate};
 
-import { form, usersList, userTemplate } from './elements.js';
+import { usersList, userTemplate } from './elements.js';
 
 function showUsers(users) {
   usersList.innerHTML = users.map(renderUserItemTemplate).join('');
@@ -22,38 +22,4 @@ function fillValuesOf(obj) {
   const replacer = (_, key) => obj[key];
   
   return [regExp, replacer];
-}
-
-function prepareToUserSubmit(addUser) {
-  form.onsubmit = async e => {
-    e.preventDefault();
-
-    const user = {
-      login: form.login.value.trim(),
-      name: form.name.value.trim(),
-    }
-    
-    user.id = await addUser(user);
-
-    addUserItem(user);
-    form.reset();
-  }
-}
-
-function prepareToClickUser(deleteUser) {
-  usersList.onclick = async e => {
-    const btn = e.target.closest('button');
-
-    if (!btn) return;
-    
-    if (btn.value = 'delete') {
-      const { id } = btn.dataset;
-      
-      await deleteUser(id);
-
-      const li = btn.closest('li');
-      
-      li.remove();
-    }
-  }
 }

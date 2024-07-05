@@ -1,4 +1,4 @@
-export {getUsers, addUser, deleteUser};
+export {getUsers, addUser, saveUser, deleteUser};
 
 import {get, post, put, destroy} from './methods.js';
 
@@ -10,6 +10,10 @@ async function addUser(user) {
   const {id} = await post('user', user);
 
   return id;
+}
+
+async function saveUser(user) {
+  await put('user', user);
 }
 
 function deleteUser(id) {

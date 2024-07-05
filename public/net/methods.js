@@ -17,7 +17,13 @@ function put(endpoint, data) {
     method: 'PUT',
     headers: {'Content-Type': 'application/json; charset=utf-8'},
     body: JSON.stringify(data),
-  }).then(r => r.json());
+  }).then(r => r.text()).then(text => {
+    try {
+      return JSON.parse(text);
+    } catch {
+      return text;
+    }
+  });
 }
 
 function destroy(endpoint, data) {

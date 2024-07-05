@@ -1,7 +1,8 @@
-import { getUsers, addUser, deleteUser } from './net/service.js';
-import { showUsers, prepareToUserSubmit, prepareToClickUser } from './ui/users.js';
+import { getUsers, addUser, saveUser, deleteUser } from './net/service.js';
+import { showUsers } from './ui/users.js';
+import { prepareToUserSubmit, prepareToClickUser } from './ui/events.js';
 
 getUsers().then(showUsers);
 
-prepareToUserSubmit(addUser);
+prepareToUserSubmit(addUser, saveUser);
 prepareToClickUser(deleteUser);
