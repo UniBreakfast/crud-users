@@ -41,7 +41,7 @@ function prepareToUserSubmit(addUser, saveUser, setPass) {
         
       li.outerHTML = renderUserItemTemplate(user);
 
-    } else if (form.matches('.change-pass')) {
+    } else if (form.matches('.set-pass')) {
       let user = {
         id: form.id.value,
         password: form.new.value.trim(),
