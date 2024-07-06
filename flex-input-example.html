@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex Input Shrinking Example</title>
+    <style>
+        .flex-container {
+            display: flex;
+            width: 300px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .flex-item {
+            flex: 1;
+            min-width: 0;
+        }
+        input {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .shrink-1 {
+            flex-shrink: 1;
+        }
+        .shrink-0 {
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <h3>Input with flex-shrink: 1</h3>
+    <div class="flex-container">
+        <input type="text" class="flex-item shrink-1" placeholder="This input should shrink">
+    </div>
+
+    <h3>Input with flex-shrink: 0</h3>
+    <div class="flex-container">
+        <input type="text" class="flex-item shrink-0" placeholder="This input won't shrink">
+    </div>
+
+    <h3>Div with flex-shrink: 1 (for comparison)</h3>
+    <div class="flex-container">
+        <div class="flex-item shrink-1" contenteditable>This div will shrink</div>
+    </div>
+</body>
+</html>

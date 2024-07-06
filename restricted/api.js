@@ -4,7 +4,7 @@ const { getPayload } = require('./payload.js');
 const { register } = require('./register.js');
 
 async function provideAPI(
-  request, response, { createUser, readUsers, updateUser, deleteUser }
+  request, response, { createUser, readUsers, updateUser, deleteUser } // project://restricted/crud.js
 ) {
   const { method, url } = request;
   const endpoint = url.replace(/^\/api\//, '');
