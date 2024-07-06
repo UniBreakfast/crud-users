@@ -3,7 +3,7 @@ export { prepareToUserSubmit, prepareToClickUser };
 import { form, usersList } from './elements.js';
 import { addUserItem, renderUserItemTemplate } from './users.js';
 
-function prepareToUserSubmit(addUser, saveUser) {
+function prepareToUserSubmit(addUser, saveUser, setPass) {
   form.onsubmit = async e => {
     e.preventDefault();
     e.submitter.disabled = true;
@@ -27,17 +27,37 @@ function prepareToUserSubmit(addUser, saveUser) {
     e.submitter.disabled = true;
     e.submitter.nextElementSibling.disabled = true;
 
-    const form = e.target;
+    let form = e.target;
     const li = form.closest('li');
-    const user = {
-      id: form.id.value,
-      login: form.login.value.trim(),
-      name: form.name.value.trim(),
+
+    if (form.matches('.edit')) {
+      const user = {
+        id: form.id.value,
+        login: form.login.value.trim(),
+        name: form.name.value.trim(),
+      }
+  
+      await saveUser(user);
+        
+      li.outerHTML = renderUserItemTemplate(user);
+
+    } else if (form.matches('.change-pass')) {
+      let user = {
+        id: form.id.value,
+        password: form.new.value.trim(),
+      }
+
+      await setPass(user);
+      
+      form = form.previousElementSibling;
+      user = {
+        id: form.id.value,
+        login: form.login.getAttribute('value'),
+        name: form.name.getAttribute('value'),
+      }
+      
+      li.outerHTML = renderUserItemTemplate(user);
     }
-
-    await saveUser(user);
-
-    li.outerHTML = renderUserItemTemplate(user);
   }
 }
 
@@ -64,7 +84,7 @@ function prepareToClickUser(deleteUser) {
       form.hidden = false;
 
     } else if (btn.value == 'cancel') {
-      const form = btn.closest('form');
+      const form = li.querySelector('form');
 
       const user = {
         id: form.id.value,
@@ -73,6 +93,12 @@ function prepareToClickUser(deleteUser) {
       }
 
       li.outerHTML = renderUserItemTemplate(user);
+
+    } else if (btn.value == 'set-pass') {
+      const [, editForm, passForm] = li.children;
+
+      editForm.hidden = true;
+      passForm.hidden = false;
     }
   }
 }

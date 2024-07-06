@@ -10,7 +10,7 @@
   <!--<link rel="stylesheet" href="base.css">-->
   <link rel="stylesheet" href="style.css">
   <script type="module" src="app.js"></script>
-  <!--<script src="script.js" defer></script>-->
+  <!-- <script src="script.js" defer></script> -->
 
   <title>Users</title>
 </head>
@@ -38,7 +38,7 @@
     </div>
   </form>
 
-  <ol>
+  <ol id="user-list">
     <template>
       <li>
         <div>
@@ -47,13 +47,27 @@
           <button value="delete" data-id="{id}" title="Delete">&times;</button>
         </div>
 
-        <form action="/api/user" method="put" hidden>
+        <form class="edit" action="/api/user" method="put" hidden>
           <input type="hidden" name="id" value="{id}">
-          <input type="text" name="name" value="{name}">
-          <input type="text" name="login" value="{login}">
+          <input type="text" name="name" value="{name}" placeholder="name" title="name">
+          <input type="text" name="login" value="{login}" placeholder="login" title="login">
 
-          <button type="submit">Save</button>
-          <button type="button" value="cancel" title="Cancel">&times;</button>
+          <div>
+            <button type="submit">Save</button>
+            <button type="button" value="cancel" title="Cancel">&times;</button> &nbsp;
+            <button type="button" value="set-pass">Set new password</button>
+          </div>
+        </form>
+
+        <form class="set-pass" action="/api/updpwd" method="put" hidden>
+          <input type="hidden" name="id" value="{id}">
+          <span>{name} ({login})</span>
+          <input type="password" name="new" placeholder="new_password">
+
+          <div>
+            <button type="submit">Set this password</button>
+            <button type="button" value="cancel" title="Cancel">&times;</button>
+          </div>
         </form>
       </li>
     </template>

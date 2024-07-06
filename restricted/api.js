@@ -1,7 +1,7 @@
 module.exports = { provideAPI };
 
 const { getPayload } = require('./payload.js');
-const { register } = require('./register.js');
+const { register, setPwd } = require('./pass-work.js');
 
 async function provideAPI(
   request, response, { createUser, readUsers, updateUser, deleteUser } // project://restricted/crud.js
@@ -36,6 +36,13 @@ async function provideAPI(
     const { id } = await getPayload(request);
     
     await deleteUser(id);
+    
+    response.end();
+
+  } else if (method === 'PUT' && endpoint === 'updpwd') {
+    const { id, password } = await getPayload(request);
+    
+    await setPwd(updateUser, { id, password });
     
     response.end();
 

@@ -1,3 +1,7 @@
+[hidden] {
+  display: none !important;
+}
+
 #add-user-form {
   display: flex;
   flex-direction: column;
@@ -21,6 +25,18 @@
   flex-shrink: 1;
 }
 
-li:not(:hover) button {
+#user-list form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: min(215px, calc(100% - 20px));
+  text-align: center;
+}
+
+[value="set-pass"] {
+  margin-left: auto;
+}
+
+li:not(:hover)>div button {
   opacity: 0.15;
 }

@@ -13,7 +13,7 @@ function prepareCRUD(db) {
       return insertedId;
     },
 
-    async readUsers(id = null) {
+    async readUsers(id = '') {
       if (id) {
         const user = await collection.findOne({ _id: new ObjectId(id) });
 
@@ -27,11 +27,11 @@ function prepareCRUD(db) {
       return users;
     },
 
-    async updateUser(id, data) {
+    async updateUser(id = '', data) {
       return collection.updateOne({ _id: new ObjectId(id) }, { $set: data });
     },
 
-    async deleteUser(id) {
+    async deleteUser(id = '') {
       return collection.deleteOne({ _id: new ObjectId(id) });
     },
   };
