@@ -11,6 +11,7 @@ function prepareToUserSubmit(addUser, saveUser) {
     const user = {
       login: form.login.value.trim(),
       name: form.name.value.trim(),
+      password: form.password.value.trim(),
     }
 
     user.id = await addUser(user);

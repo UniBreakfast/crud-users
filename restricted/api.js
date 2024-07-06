@@ -1,6 +1,7 @@
 module.exports = { provideAPI };
 
 const { getPayload } = require('./payload.js');
+const { register } = require('./register.js');
 
 async function provideAPI(
   request, response, { createUser, readUsers, updateUser, deleteUser }
@@ -16,9 +17,8 @@ async function provideAPI(
     response.end(json);
 
   } else if (method === 'POST' && endpoint === 'user') {
-    const { login, name } = await getPayload(request);
-    const user = { login, name };
-    const id = await createUser(user);
+    const { login, name, password } = await getPayload(request);
+    const id = await register(createUser, { login, name, password });
     
     const json = JSON.stringify({ id });
 
