@@ -12,6 +12,13 @@ function addUserItem(user) {
 
 function renderUserItemTemplate(user) {
   const html = userTemplate.innerHTML;
+
+  Object.assign(user, {
+    lb: user.role === 'admin' ? '[' : '(',
+    rb: user.role === 'admin' ? ']' : ')',
+    admin: user.role === 'admin' ? 'selected' : '',
+    user: user.role === 'user' ? 'selected' : '',
+  });
   
   return html.replace(...fillValuesOf(user))
 }

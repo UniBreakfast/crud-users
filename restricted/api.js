@@ -17,8 +17,8 @@ async function provideAPI(
     response.end(json);
 
   } else if (method === 'POST' && endpoint === 'user') {
-    const { login, name, password } = await getPayload(request);
-    const id = await register(createUser, { login, name, password });
+    const { login, name, password, role } = await getPayload(request);
+    const id = await register(createUser, { login, name, password, role });
     
     const json = JSON.stringify({ id });
 
@@ -26,9 +26,9 @@ async function provideAPI(
     response.end(json);
 
   } else if (method === 'PUT' && endpoint === 'user') {
-    const { id, login, name } = await getPayload(request);
+    const { id, login, name, role } = await getPayload(request);
     
-    await updateUser(id, { login, name });
+    await updateUser(id, { login, name, role });
     
     response.end();
 

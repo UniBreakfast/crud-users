@@ -12,6 +12,7 @@ function prepareToUserSubmit(addUser, saveUser, setPass) {
       login: form.login.value.trim(),
       name: form.name.value.trim(),
       password: form.password.value.trim(),
+      role: form.role.value,
     }
 
     user.id = await addUser(user);
@@ -35,6 +36,7 @@ function prepareToUserSubmit(addUser, saveUser, setPass) {
         id: form.id.value,
         login: form.login.value.trim(),
         name: form.name.value.trim(),
+        role: form.role.value,
       }
   
       await saveUser(user);
@@ -54,6 +56,7 @@ function prepareToUserSubmit(addUser, saveUser, setPass) {
         id: form.id.value,
         login: form.login.getAttribute('value'),
         name: form.name.getAttribute('value'),
+        role: form.role.slectedOptions[0].value,
       }
       
       li.outerHTML = renderUserItemTemplate(user);

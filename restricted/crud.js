@@ -17,12 +17,14 @@ function prepareCRUD(db) {
       if (id) {
         const user = await collection.findOne({ _id: new ObjectId(id) });
 
-        return renameId(user);
+        if (!user) return null
+
+        return renameId(removeHash(user));
       }
 
       const users = await collection.find().toArray();
 
-      users.forEach(renameId);
+      users.map(renameId).map(removeHash);
       
       return users;
     },
@@ -42,4 +44,10 @@ function renameId(user) {
   delete user._id;
 
   return user;
+}
+
+function removeHash(obj) {
+  delete obj.hash;
+
+  return obj;
 }
