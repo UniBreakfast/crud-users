@@ -2,6 +2,29 @@
   display: none !important;
 }
 
+#guest form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: min(330px, calc(100% - 20px));
+  text-align: center;
+}
+
+#guest form label {
+  display: flex;
+}
+
+#guest form label span {
+  flex-basis: 230px;
+  flex-grow: 1;
+  text-align: right;
+}
+
+#guest form label input {
+  width: 100%;
+  flex-shrink: 1;
+}
+
 #add-user-form {
   display: flex;
   flex-direction: column;
