@@ -10,80 +10,146 @@
   <!--<link rel="stylesheet" href="base.css">-->
   <link rel="stylesheet" href="style.css">
   <script type="module" src="app.js"></script>
-  <!-- <script src="script.js" defer></script> -->
+  <script src="/api/user.js"></script>
 
   <title>Users</title>
 </head>
 
 <body id="body">
-  <form id="add-user-form" action="/api/user" method="post">
-    <label>
-      <span>Name:</span>
-      <input type="text" name="name" required autofocus>
-    </label>
+  <main>
+    <div id="guest" hidden>
+      <div id="lobby">
+        <button value="register">Register</button>
+        <button value="login">Log in</button>
+      </div>
 
-    <label>
-      <span>Role:</span>
-      <select name="role" required>
-        <option value="user">User</option>
-        <option value="admin">Admin</option>
-      </select>
-    </label>
+      <form id="register-form" action="/api/user" method="post" hidden>
+        <p>
+          Already have an account?
+          <button type="button" value="login">Log in</button>
+          instead. 
+        </p>
+        
+        <label>
+          <span>Name:</span>
+          <input type="text" name="name" required autofocus>
+        </label>
 
-    <label>
-      <span>Login:</span>
-      <input type="text" name="login" required>
-    </label>
+        <label>
+          <span>Login:</span>
+          <input type="text" name="login" required>
+        </label>
 
-    <label>
-      <span>Password:</span>
-      <input type="password" name="password" required>
-    </label>
+        <label>
+          <span>Password:</span>
+          <input type="password" name="password" required>
+        </label>
 
-    <div>
-      <button type="submit">Add</button>
-      <button type="reset">Clear</button>
-    </div>
-  </form>
+        <label>
+          <span>Repeat password:</span>
+          <input type="password" name="repeat" required>
+        </label>
 
-  <ol id="user-list">
-    <template>
-      <li>
+        <p class="feedback"></p>
+        
         <div>
-          <span>{name} {lb}{login}{rb}</span>
-          <button value="edit" data-id="{id}">Edit</button>
-          <button value="delete" data-id="{id}" title="Delete">&times;</button>
+          <button type="submit">Register</button>
+          <button type="reset">Clear</button>
         </div>
+      </form>
 
-        <form class="edit" action="/api/user" method="put" hidden>
-          <input type="hidden" name="id" value="{id}">
-          <input type="text" name="name" value="{name}" placeholder="name" title="name">
-          <select name="role">
-            <option value="user" {user}>User</option>
-            <option value="admin" {admin}>Admin</option>
+      <form id="login-form" action="/api/login" method="post" hidden>
+        <p>
+          Don't have an account yet?
+          <button type="button" value="register">Register</button>
+          now.
+        </p>
+        
+        <label>
+          <span>Login:</span>
+          <input type="text" name="login" required autofocus>
+        </label>
+
+        <label>
+          <span>Password:</span>
+          <input type="password" name="password" required>
+        </label>
+
+        <p class="feedback"></p>
+        
+        <div>
+          <button type="submit">Log in</button>
+          <button type="reset">Clear</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="user" hidden>
+
+    </div>
+
+    <div id="admin" hidden>
+      <form id="add-user-form" action="/api/user" method="post">
+        <label>
+          <span>Name:</span>
+          <input type="text" name="name" required autofocus>
+        </label>
+        <label>
+          <span>Role:</span>
+          <select name="role" required>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
           </select>
-          <input type="text" name="login" value="{login}" placeholder="login" title="login">
-
-          <div>
-            <button type="submit">Save</button>
-            <button type="button" value="cancel" title="Cancel">&times;</button> &nbsp;
-            <button type="button" value="set-pass">Set new password</button>
-          </div>
-        </form>
-
-        <form class="set-pass" action="/api/updpwd" method="put" hidden>
-          <input type="hidden" name="id" value="{id}">
-          <span>{name} ({login})</span>
-          <input type="password" name="new" placeholder="new_password">
-
-          <div>
-            <button type="submit">Set this password</button>
-            <button type="button" value="cancel" title="Cancel">&times;</button>
-          </div>
-        </form>
-      </li>
-    </template>
-  </ol>
+        </label>
+        <label>
+          <span>Login:</span>
+          <input type="text" name="login" required>
+        </label>
+        <label>
+          <span>Password:</span>
+          <input type="password" name="password" required>
+        </label>
+        <div>
+          <button type="submit">Add</button>
+          <button type="reset">Clear</button>
+        </div>
+      </form>
+      <ol id="user-list">
+        <template>
+          <li>
+            <div>
+              <span>{name} {lb}{login}{rb}</span>
+              <button value="edit" data-id="{id}">Edit</button>
+              <button value="delete" data-id="{id}" title="Delete">&times;</button>
+            </div>
+            <form class="edit" action="/api/user" method="put" hidden>
+              <input type="hidden" name="id" value="{id}">
+              <input type="text" name="name" value="{name}" placeholder="name" title="name">
+              <select name="role">
+                <option value="user" {user}>User</option>
+                <option value="admin" {admin}>Admin</option>
+              </select>
+              <input type="text" name="login" value="{login}" placeholder="login" title="login">
+              <div>
+                <button type="submit">Save</button>
+                <button type="button" value="cancel" title="Cancel">&times;</button> &nbsp;
+                <button type="button" value="set-pass">Set new password</button>
+              </div>
+            </form>
+            <form class="set-pass" action="/api/updpwd" method="put" hidden>
+              <input type="hidden" name="id" value="{id}">
+              <span>{name} ({login})</span>
+              <input type="password" name="new" placeholder="new_password">
+              <div>
+                <button type="submit">Set this password</button>
+                <button type="button" value="cancel" title="Cancel">&times;</button>
+              </div>
+            </form>
+          </li>
+        </template>
+      </ol>
+    </div>
+  </main>
 </body>
 
 </html>

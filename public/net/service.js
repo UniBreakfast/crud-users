@@ -1,4 +1,4 @@
-export {getUsers, addUser, saveUser, deleteUser, setPass};
+export {getUsers, addUser, saveUser, deleteUser, setPass, logIn};
 
 import {get, post, put, destroy} from './methods.js';
 
@@ -22,4 +22,8 @@ function deleteUser(id) {
 
 function setPass(user) {
   return put('updpwd', user);
+}
+
+function logIn(user) {
+  return post('login', user);
 }

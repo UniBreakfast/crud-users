@@ -1,26 +1,26 @@
 export { prepareToUserSubmit, prepareToClickUser };
 
-import { form, usersList } from './elements.js';
+import { addForm, usersList } from './elements.js';
 import { addUserItem, renderUserItemTemplate } from './users.js';
 
 function prepareToUserSubmit(addUser, saveUser, setPass) {
-  form.onsubmit = async e => {
+  addForm.onsubmit = async e => {
     e.preventDefault();
     e.submitter.disabled = true;
 
     const user = {
-      login: form.login.value.trim(),
-      name: form.name.value.trim(),
-      password: form.password.value.trim(),
-      role: form.role.value,
+      login: addForm.login.value.trim(),
+      name: addForm.name.value.trim(),
+      password: addForm.password.value.trim(),
+      role: addForm.role.value,
     }
 
     user.id = await addUser(user);
 
     addUserItem(user);
-    form.reset();
+    addForm.reset();
     e.submitter.disabled = false;
-    form.name.focus();
+    addForm.name.focus();
   }
 
   usersList.onsubmit = async e => {
