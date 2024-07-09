@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
-  width: min(330px, calc(100% - 20px));
+  width: min(310px, calc(100% - 20px));
   text-align: center;
 }
 
@@ -15,7 +15,7 @@
 }
 
 #guest form label span {
-  flex-basis: 230px;
+  flex-basis: 100px;
   flex-grow: 1;
   text-align: right;
 }

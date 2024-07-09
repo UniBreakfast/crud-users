@@ -3,38 +3,55 @@ module.exports = { prepareCRUD };
 const { ObjectId } = require('mongodb');
 
 function prepareCRUD(db) {
-  const collectionName = 'users';
-  const collection = db.collection(collectionName);
+  const usersCollection = db.collection('users');
+  const sessionsCollection = db.collection('sessions');
 
   return {
     async createUser(data) {
-      const { insertedId } = await collection.insertOne(data);
+      const { insertedId } = await usersCollection.insertOne(data);
 
       return insertedId;
     },
 
-    async readUsers(id = '') {
-      if (id) {
-        const user = await collection.findOne({ _id: new ObjectId(id) });
-
-        if (!user) return null
-
-        return renameId(removeHash(user));
-      }
-
-      const users = await collection.find().toArray();
+    async readUsers() {
+      const users = await usersCollection.find().toArray();
 
       users.map(renameId).map(removeHash);
-      
+
       return users;
     },
 
+    async readUser({ id = '', ...data }, leaveHash = false, leaveId = false) {
+      if (id) {
+        const user = await usersCollection.findOne({ _id: new ObjectId(id) });
+
+        if (!user) return null;
+
+        return renameId(leaveHash ? user : removeHash(user));
+
+      } else {
+        const user = await usersCollection.findOne(data);
+
+        if (!user) return null;
+
+        return renameId(leaveHash ? user : removeHash(user));
+      }
+    },
+
     async updateUser(id = '', data) {
-      return collection.updateOne({ _id: new ObjectId(id) }, { $set: data });
+      return usersCollection.updateOne({ _id: new ObjectId(id) }, { $set: data });
     },
 
     async deleteUser(id = '') {
-      return collection.deleteOne({ _id: new ObjectId(id) });
+      return usersCollection.deleteOne({ _id: new ObjectId(id) });
+    },
+
+    async createSession(data) {
+      return sessionsCollection.insertOne(data);
+    },
+
+    async readSession(data) {
+      return sessionsCollection.findOne(data);
     },
   };
 }

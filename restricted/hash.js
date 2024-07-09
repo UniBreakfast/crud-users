@@ -1,4 +1,4 @@
-module.exports = { hashPwd };
+module.exports = { hashPwd, verifyPwd };
 
 const crypto = require('crypto');
 const {promisify} = require('util');
