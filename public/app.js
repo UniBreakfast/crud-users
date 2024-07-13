@@ -1,17 +1,20 @@
 import { getUsers, addUser, saveUser, deleteUser, setPass, logIn } from './net/service.js';
+import { fillProfile } from './ui/profile.js';
+import { prepareToUserSubmit } from './ui/user-events.js';
 import { showUsers } from './ui/users.js';
-import { prepareToUserSubmit, prepareToClickUser } from './ui/admin-events.js';
+import { prepareToAdminSubmit, prepareToClickUser } from './ui/admin-events.js';
 import { prepareLobbyNavigation, prepareToAuthSubmit } from './ui/guest-events.js';
 
 switch (user.role) {
   case 'user': {
-    
+    fillProfile(user);
+    prepareToUserSubmit(saveUser, setPass, deleteUser);
   }
     break;
   case 'admin': {
     getUsers().then(showUsers);
 
-    prepareToUserSubmit(addUser, saveUser, setPass);
+    prepareToAdminSubmit(addUser, saveUser, setPass);
     prepareToClickUser(deleteUser);
   }
     break;

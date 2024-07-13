@@ -27,9 +27,9 @@
         <p>
           Already have an account?
           <button type="button" value="login">Log in</button>
-          instead. 
+          instead.
         </p>
-        
+
         <label>
           <span>Name:</span>
           <input type="text" name="name" required autofocus>
@@ -51,7 +51,7 @@
         </label>
 
         <p class="feedback"></p>
-        
+
         <div>
           <button type="submit">Register</button>
           <button type="reset">Clear</button>
@@ -64,7 +64,7 @@
           <button type="button" value="register">Register</button>
           now.
         </p>
-        
+
         <label>
           <span>Login:</span>
           <input type="text" name="login" required autofocus>
@@ -76,7 +76,7 @@
         </label>
 
         <p class="feedback"></p>
-        
+
         <div>
           <button type="submit">Log in</button>
           <button type="reset">Clear</button>
@@ -85,7 +85,81 @@
     </div>
 
     <div id="user" hidden>
+      <template>
+        <h2>Hello, {name}</h2>
 
+        <h3 style="font-weight: 400">Your login is <b>{login}</b></h3>
+
+        <form action="/api/user" method="put">
+          <h4>You can change your name</h4>
+          <input type="hidden" name="id" value="{id}">
+
+          <label>
+            <span>New name you want:</span>
+            <input type="text" name="name" value="{name}" placeholder="Name you prefer" required>
+          </label>
+
+          <p class="feedback"></p>
+
+          <div>
+            <button type="submit">Save</button>
+            <button type="button">Revert</button>
+          </div>
+        </form>
+
+        <form action="/api/updpwd" method="put">
+          <h4>You can change your password</h4>
+          <input type="hidden" name="id" value="{id}">
+
+          <label>
+            <span>Your old password:</span>
+            <input type="password" name="old" placeholder="old_password" required>
+          </label>
+
+          <label>
+            <span>New password you want:</span>
+            <input type="password" name="new" placeholder="new_password" required>
+          </label>
+
+          <label>
+            <span>Repeat it:</span>
+            <input type="password" name="repeat" placeholder="same_new_password" required>
+          </label>
+
+          <p class="feedback"></p>
+
+          <div>
+            <button type="submit">Set new password</button>
+            <button type="reset">Clear</button>
+          </div>
+        </form>
+
+        <form action="/api/user" method="delete">
+          <details>
+            <summary>
+              <h4>Want to delete your account?</h4>
+
+              <p>If you are absolutely sure, you want<br>to delete your account, press here...</p>
+            </summary>
+
+            <input type="hidden" name="id" value="{id}">
+
+            <label>
+              <span>Confirm with your password:</span>
+              <input type="password" name="password" placeholder="your_password" required>
+            </label>
+
+            <p class="feedback"></p>
+
+            <div>
+              <button type="submit">Permanently delete my account</button>
+              <button type="button">Cancel</button>
+            </div>
+          </details>
+        </form>
+
+        <button value="logout">Log out</button>
+      </template>
     </div>
 
     <div id="admin" hidden>
@@ -114,6 +188,7 @@
           <button type="reset">Clear</button>
         </div>
       </form>
+
       <ol id="user-list">
         <template>
           <li>

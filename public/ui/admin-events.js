@@ -1,9 +1,9 @@
-export { prepareToUserSubmit, prepareToClickUser };
+export { prepareToAdminSubmit, prepareToClickUser };
 
 import { addForm, usersList } from './elements.js';
 import { addUserItem, renderUserItemTemplate } from './users.js';
 
-function prepareToUserSubmit(addUser, saveUser, setPass) {
+function prepareToAdminSubmit(addUser, saveUser, setPass) {
   addForm.onsubmit = async e => {
     e.preventDefault();
     e.submitter.disabled = true;
