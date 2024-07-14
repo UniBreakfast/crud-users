@@ -20,7 +20,7 @@ async function hashPwd(password) {
 async function verifyPwd(password, hash) {
   const [salt, key] = hash.split(':');
   const derivedKey = await pbkdf2(password, salt, ...params);
-
+  
   return key === derivedKey.toString('hex');
 }
 

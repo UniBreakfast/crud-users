@@ -90,7 +90,7 @@
 
         <h3 style="font-weight: 400">Your login is <b>{login}</b></h3>
 
-        <form action="/api/user" method="put">
+        <form id="name-form" action="/api/user" method="put">
           <h4>You can change your name</h4>
           <input type="hidden" name="id" value="{id}">
 
@@ -103,11 +103,11 @@
 
           <div>
             <button type="submit">Save</button>
-            <button type="button">Revert</button>
+            <button type="reset">Revert</button>
           </div>
         </form>
 
-        <form action="/api/updpwd" method="put">
+        <form id="pass-form" action="/api/changepwd" method="put">
           <h4>You can change your password</h4>
           <input type="hidden" name="id" value="{id}">
 
@@ -134,7 +134,7 @@
           </div>
         </form>
 
-        <form action="/api/user" method="delete">
+        <form id="del-form" action="/api/user" method="delete">
           <details>
             <summary>
               <h4>Want to delete your account?</h4>
@@ -211,7 +211,7 @@
                 <button type="button" value="set-pass">Set new password</button>
               </div>
             </form>
-            <form class="set-pass" action="/api/updpwd" method="put" hidden>
+            <form class="set-pass" action="/api/setpwd" method="put" hidden>
               <input type="hidden" name="id" value="{id}">
               <span>{name} ({login})</span>
               <input type="password" name="new" placeholder="new_password">

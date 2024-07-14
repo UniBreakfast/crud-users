@@ -76,7 +76,7 @@ function prepareToClickUser(deleteUser) {
 
       btn.disabled = true;
 
-      await deleteUser(id);
+      await deleteUser({id});
 
       li.remove();
 

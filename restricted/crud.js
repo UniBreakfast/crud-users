@@ -21,7 +21,7 @@ function prepareCRUD(db) {
       return users;
     },
 
-    async readUser({ id = '', ...data }, leaveHash = false, leaveId = false) {
+    async readUser({ id = '', ...data }, leaveHash = false) {
       if (id) {
         const user = await usersCollection.findOne({ _id: new ObjectId(id) });
 
@@ -52,6 +52,14 @@ function prepareCRUD(db) {
 
     async readSession(data) {
       return sessionsCollection.findOne(data);
+    },
+
+    async deleteSessions(userId = '') {
+      return sessionsCollection.deleteMany({ userId: new ObjectId(userId) });
+    },
+
+    async deleteSession({ token }) {
+      return sessionsCollection.deleteOne({ token });
     },
   };
 }

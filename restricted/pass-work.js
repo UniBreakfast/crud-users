@@ -1,14 +1,32 @@
-module.exports = { register, setPwd, logIn };
+module.exports = { register, setPwd, logIn, unregister };
 
 const { hashPwd, verifyPwd } = require('./hash.js');
 
 async function register(storeFn, { login, name, password }) {
   const hash = await hashPwd(password);
   
-  return storeFn({login, name, hash});
+  return storeFn({login, name, hash, role: 'user'});
 }
 
-async function setPwd(storeFn, { id, password }) {
+async function unregister(getFn, delFn, {id, password}) {
+  const user = await getFn({id}, true);
+  
+  if (!user || !await verifyPwd(password, user.hash)) {
+    return {problem: 'Incorrect password'};
+  }
+  
+  return delFn(id);
+}
+
+async function setPwd(storeFn, { id, password0='', password=''}, getFn) {
+  if (getFn) {
+    const user = await getFn({id}, true);
+    
+    if (!user || !await verifyPwd(password0, user.hash)) {
+      return {problem: 'Correct current password required'};
+    }
+  }
+
   const hash = await hashPwd(password);
   
   return storeFn(id, {hash});

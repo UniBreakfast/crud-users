@@ -76,6 +76,8 @@ function prepareToAuthSubmit(addUser, logIn) {
     } else {
       loginFeedback.textContent = 'Login successful.';
       loginForm.reset();
+
+      setTimeout(() => location.reload(), 500);
     }
   }
 }
