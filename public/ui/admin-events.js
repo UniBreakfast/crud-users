@@ -1,6 +1,8 @@
-export { prepareToAdminSubmit, prepareToClickUser };
+export {
+  prepareToAdminSubmit, prepareToClickUser, prepareToLeave
+};
 
-import { addForm, usersList } from './elements.js';
+import { addForm, usersList, logoutBtn } from './elements.js';
 import { addUserItem, renderUserItemTemplate } from './users.js';
 
 function prepareToAdminSubmit(addUser, saveUser, setPass) {
@@ -38,9 +40,9 @@ function prepareToAdminSubmit(addUser, saveUser, setPass) {
         name: form.name.value.trim(),
         role: form.role.value,
       }
-  
+
       await saveUser(user);
-        
+
       li.outerHTML = renderUserItemTemplate(user);
 
     } else if (form.matches('.set-pass')) {
@@ -50,7 +52,7 @@ function prepareToAdminSubmit(addUser, saveUser, setPass) {
       }
 
       await setPass(user);
-      
+
       form = form.previousElementSibling;
       user = {
         id: form.id.value,
@@ -58,7 +60,7 @@ function prepareToAdminSubmit(addUser, saveUser, setPass) {
         name: form.name.getAttribute('value'),
         role: form.role.selectedOptions[0].value,
       }
-      
+
       li.outerHTML = renderUserItemTemplate(user);
     }
   }
@@ -76,7 +78,7 @@ function prepareToClickUser(deleteUser) {
 
       btn.disabled = true;
 
-      await deleteUser({id});
+      await deleteUser({ id });
 
       li.remove();
 
@@ -103,5 +105,15 @@ function prepareToClickUser(deleteUser) {
       editForm.hidden = true;
       passForm.hidden = false;
     }
+  }
+}
+
+function prepareToLeave(logOut) {
+  logoutBtn.onclick = async e => {
+    e.target.disabled = true;
+
+    await logOut();
+
+    location.reload();
   }
 }

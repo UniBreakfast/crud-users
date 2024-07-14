@@ -1,12 +1,16 @@
 import {
-  getUsers, addUser, saveUser, deleteUser, 
+  getUsers, addUser, saveUser, deleteUser,
   setPass, changePass, logIn, logOut,
 } from './net/service.js';
 import { fillProfile } from './ui/profile.js';
 import { prepareToUserSubmit } from './ui/user-events.js';
 import { showUsers } from './ui/users.js';
-import { prepareToAdminSubmit, prepareToClickUser } from './ui/admin-events.js';
-import { prepareLobbyNavigation, prepareToAuthSubmit } from './ui/guest-events.js';
+import {
+  prepareToAdminSubmit, prepareToClickUser, prepareToLeave
+} from './ui/admin-events.js';
+import {
+  prepareLobbyNavigation, prepareToAuthSubmit
+} from './ui/guest-events.js';
 
 switch (user.role) {
   case 'user': {
@@ -19,6 +23,7 @@ switch (user.role) {
 
     prepareToAdminSubmit(addUser, saveUser, setPass);
     prepareToClickUser(deleteUser);
+    prepareToLeave(logOut);
   }
     break;
   default: {
